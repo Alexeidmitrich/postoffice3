@@ -44,8 +44,15 @@ public class NewCommandTool{
             String data = matcher.group(2);
             System.out.println(data);
             String[] postitemDate = data.split(";");
-            Date departureDate = Date.;
-            postofficeRefactoring.addClient(clientDate[0], clientDate[1], postid);
+            Date departureDate = Date.valueOf(postitemDate[0]);
+            Date arrivalDate = Date.valueOf(postitemDate[1]);
+            int weight = Integer.parseInt(postitemDate[2]);
+            int price = Integer.parseInt(postitemDate[3]);
+            int idRecipient = Integer.parseInt(postitemDate[4]);
+            int idSender = Integer.parseInt(postitemDate[5]);
+            int typePostitemId = Integer.parseInt(postitemDate[6]);
+            int postOffice_id = Integer.parseInt(postitemDate[7]);
+            postofficeRefactoring.addPostitem(departureDate,arrivalDate,weight, price, idRecipient, idSender, typePostitemId, postOffice_id);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addTransport);
