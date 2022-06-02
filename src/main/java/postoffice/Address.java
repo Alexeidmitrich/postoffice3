@@ -20,6 +20,15 @@ public class Address {
         this.phone = phone;
         this.idClient = idClient;
     }
+    public Address(String city, String street, String house, String bilding, String flat, String phone, int idClient){
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.bilding = bilding;
+        this.flat = flat;
+        this.phone = phone;
+        this.idClient = idClient;
+    }
 
     public int getIdAddress() {
         return idAddress;

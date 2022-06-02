@@ -10,6 +10,10 @@ public class Transport {
         this.type = type;
         this.idPostitem = idPostitem;
     }
+    public Transport(String type, int idPostitem){
+        this.type = type;
+        this.idPostitem = idPostitem;
+    }
 
     public int getId() {
         return id;

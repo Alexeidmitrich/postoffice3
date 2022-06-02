@@ -8,6 +8,9 @@ public class NumberPostoffice {
         this.id = id;
         this.city = city;
     }
+    public NumberPostoffice(String city){
+        this.city = city;
+    }
 
     public int getId() {
         return id;

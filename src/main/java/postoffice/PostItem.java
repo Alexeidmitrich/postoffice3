@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 public class PostItem {
     protected int idPostItem;
-    protected Date departureDate;
-    protected Date arrivalDate;
+    protected LocalDate departureDate;
+    protected LocalDate arrivalDate;
     protected int weight;
     protected int price;
     protected  int idRecipient;
@@ -14,7 +14,7 @@ public class PostItem {
     protected int typePostitemId;
     protected NumberPostoffice numberPostoffice;
 
-    public PostItem(int idPostItem, Date departureDate, Date arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId, NumberPostoffice numberPostoffice){
+    public PostItem(int idPostItem, LocalDate departureDate, LocalDate arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId, NumberPostoffice numberPostoffice){
         this.idPostItem = idPostItem;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
@@ -25,7 +25,7 @@ public class PostItem {
         this.typePostitemId = typePostitemId;
         this.numberPostoffice = numberPostoffice;
     }
-    public PostItem(Date departureDate, Date arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId){
+    public PostItem(LocalDate departureDate, LocalDate arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId){
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
         this.weight = weight;
@@ -43,19 +43,19 @@ public class PostItem {
         this.idPostItem = idPostItem;
     }
 
-    public Date getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getArrivalDate() {
+    public LocalDate getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(LocalDate arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 

@@ -18,7 +18,7 @@ public class PostitemDAOImpl extends  DBManager implements PostitemDAO {
 
             while (rs.next()) {
                 NumberPostoffice numberPostoffice = new NumberPostoffice(rs.getInt("id"), rs.getString("city"));
-                PostItem postItem = new PostItem(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), numberPostoffice);
+                PostItem postItem = new PostItem(rs.getInt(1), rs.getDate(2).toLocalDate(), rs.getDate(3).toLocalDate(), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), numberPostoffice);
                 postItemsList.add(postItem);
             }
             connection.close();
@@ -35,12 +35,12 @@ public class PostitemDAOImpl extends  DBManager implements PostitemDAO {
         Connection connection = getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * from postoffice3.postitem " +
-                    " WHERE sendersid = ?");
+                    " WHERE idPostitem = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
             NumberPostoffice numberPostoffice = new NumberPostoffice(rs.getInt("id"), rs.getString("city"));
-            postItem = new PostItem(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), numberPostoffice);
+            postItem = new PostItem(rs.getInt(1), rs.getDate(2).toLocalDate(), rs.getDate(3).toLocalDate(), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), numberPostoffice);
 
             connection.close();
         } catch (SQLException ex) {
@@ -53,18 +53,17 @@ public class PostitemDAOImpl extends  DBManager implements PostitemDAO {
     public void save(PostItem postItem, int postofficeId) {
         try {
             Connection connection = getConnection();
-            String sql = "INSERT INTO postoffice3.postitem (idPostitem,departureDate, arrivalDate,weight,price,idRecipient, idSender, typePostitemId,numberPostoffice) values (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO postoffice3.postitem (idPostitem,departureDate, arrivalDate,weight,price,idRecipient, idSender, typePostitem_id,postOffice_id) values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, postItem.getIdPostItem());
-            statement.setDate(2, postItem.getDepartureDate());
-            statement.setDate(3, postItem.getArrivalDate());
+            statement.setDate(2, Date.valueOf(postItem.getDepartureDate()));
+            statement.setDate(3, Date.valueOf(postItem.getArrivalDate()));
             statement.setInt(4,postItem.getWeight());
             statement.setInt(5, postItem.getPrice());
             statement.setInt(6,postItem.getIdRecipient());
             statement.setInt(7, postItem.getIdSender());
             statement.setInt(8, postItem.getTypePostitemId());
-            statement.setObject(9, postItem.getNumberPostoffice());
-            statement.setInt(10, postofficeId);
+            statement.setInt(9, postofficeId);
             statement.execute();
             connection.close();
         } catch (SQLException ex) {

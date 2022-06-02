@@ -34,7 +34,7 @@ public class ClientDAOImpl extends DBManager implements ClientDAO{
         Connection connection = getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * from postoffice3.client " +
-                    " WHERE sendersid = ?");
+                    " WHERE idClient = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
@@ -74,7 +74,7 @@ public class ClientDAOImpl extends DBManager implements ClientDAO{
     public void save(Client client, int postofficeId) {
         try {
             Connection connection = getConnection();
-            String sql = "INSERT INTO postoffice3.client (idClient,firstname, lastname,postOfficeid) values (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO postoffice3.client (idClient, firstname, lastname, postOffice_id) values (?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, client.getId());
             statement.setString(2, client.getFirstName() );

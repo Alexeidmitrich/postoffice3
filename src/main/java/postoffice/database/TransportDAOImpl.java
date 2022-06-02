@@ -53,7 +53,7 @@ public class TransportDAOImpl extends DBManager implements  TransportDAO{
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, transport.getId());
         statement.setString(2,transport.getType());
-        statement.setInt(5, transport.getIdPostitem());
+        statement.setInt(3, transport.getIdPostitem());
         statement.execute();
         connection.close();
     } catch (SQLException ex) {

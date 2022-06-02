@@ -10,10 +10,12 @@ public class NewCommandTool{
 
     public void parseCommand(String command) {
         final String addPostoffice = "(addpostoffice)";
-        final String addNumberPostoffice = "(addnumberpostoffice) ([0-9]+;[a-zA-Z\\sа-яА-Я\\W$]+)";
+        final String addNumberPostoffice = "(addnumberpostoffice) ([a-zA-Z\\sа-яА-Я\\W$]+)";
         final String addClient = "(addclient) ([a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9]+)";
-        final String addPostitem = "(addpostitem) ([0-9.]+;[0-9.]+;[0-9]+;[0-9]+;[0-9]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
-        final String addTransport = "(addtransport) ([0-9]+;[a-zA-Zа-яА-Я\\/-]+;[0-9]+)";
+        final String addTypePostitem = "(addtypepostitem) ([a-zA-Zа-яА-Я]+)";
+        final String addPostitem = "(addpostitem) ([0-9.-]+;[0-9.-]+;[0-9]+;[0-9]+;[0-9]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
+        final String addTransport = "(addtransport) ([a-zA-Zа-яА-Я\\/-]+;[0-9]+)";
+        final String addAddress = "(addaddress) ([a-zA-Zа-яА-Я-0-9]+;[a-zA-Z\\sа-яА-Я\\W$0-9]+;[0-9]+)";
         Matcher  matcher = isPatternMatches(command, addPostoffice);
         if (matcher.find()) {
             String data = matcher.group(1);
@@ -26,8 +28,7 @@ public class NewCommandTool{
             String data = matcher.group(2);
             System.out.println(data);
             String[] numberDate = data.split(";");
-            int id = Integer.parseInt(numberDate[0]);
-            postofficeRefactoring.addNumberPostoffice(id, numberDate[1]);
+            postofficeRefactoring.addNumberPostoffice(numberDate[0]);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addClient);
@@ -37,6 +38,14 @@ public class NewCommandTool{
             String[] clientDate = data.split(";");
             int postid = Integer.parseInt(clientDate[2]);
             postofficeRefactoring.addClient(clientDate[0], clientDate[1], postid);
+            System.out.println("Ok");
+        }
+        matcher = isPatternMatches(command, addTypePostitem);
+        if (matcher.find()) {
+            String data = matcher.group(2);
+            System.out.println(data);
+            String[] typeDate = data.split(";");
+            postofficeRefactoring.addTypePostitem(typeDate[0]);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addPostitem);
@@ -50,9 +59,9 @@ public class NewCommandTool{
             int price = Integer.parseInt(postitemDate[3]);
             int idRecipient = Integer.parseInt(postitemDate[4]);
             int idSender = Integer.parseInt(postitemDate[5]);
-            int typePostitemId = Integer.parseInt(postitemDate[6]);
+             String typePostitem = postitemDate[6];
             int postOffice_id = Integer.parseInt(postitemDate[7]);
-            postofficeRefactoring.addPostitem(departureDate,arrivalDate,weight, price, idRecipient, idSender, typePostitemId, postOffice_id);
+            postofficeRefactoring.addPostitem(departureDate.toLocalDate(),arrivalDate.toLocalDate(),weight, price, idRecipient, idSender, typePostitem, postOffice_id);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addTransport);
@@ -60,9 +69,17 @@ public class NewCommandTool{
             String data = matcher.group(2);
             System.out.println(data);
             String[] transportDate = data.split(";");
-            int id = Integer.parseInt(transportDate[0]);
-            int idPostitem = Integer.parseInt(transportDate[2]);
-            postofficeRefactoring.addTransport(id, transportDate[1], idPostitem);
+            int idPostitem = Integer.parseInt(transportDate[1]);
+            postofficeRefactoring.addTransport(transportDate[0], idPostitem);
+            System.out.println("Ok");
+        }
+        matcher = isPatternMatches(command, addAddress);
+        if (matcher.find()) {
+            String data = matcher.group(2);
+            System.out.println(data);
+            String[] addressDate = data.split(";");
+            int idClient = Integer.parseInt(addressDate[6]);
+            postofficeRefactoring.addAddress(addressDate[0], addressDate[1], addressDate[2], addressDate[3], addressDate[4],addressDate[5], idClient);
             System.out.println("Ok");
         }
     }
