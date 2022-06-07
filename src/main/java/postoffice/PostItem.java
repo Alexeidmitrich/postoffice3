@@ -1,9 +1,9 @@
 package postoffice;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class PostItem {
+    private  String typePostitem;
     protected int idPostItem;
     protected LocalDate departureDate;
     protected LocalDate arrivalDate;
@@ -12,9 +12,10 @@ public class PostItem {
     protected  int idRecipient;
     protected  int idSender;
     protected int typePostitemId;
-    protected NumberPostoffice numberPostoffice;
+    protected int postOfficeId;
+    protected Client client;
 
-    public PostItem(int idPostItem, LocalDate departureDate, LocalDate arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId, NumberPostoffice numberPostoffice){
+    public PostItem(int idPostItem, LocalDate departureDate, LocalDate arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId, int postOfficeId){
         this.idPostItem = idPostItem;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
@@ -23,17 +24,18 @@ public class PostItem {
         this.idRecipient = idRecipient;
         this.idSender = idSender;
         this.typePostitemId = typePostitemId;
-        this.numberPostoffice = numberPostoffice;
+        this.postOfficeId = postOfficeId;
     }
-    public PostItem(LocalDate departureDate, LocalDate arrivalDate, int weight, int price, int idRecipient, int idSender, int typePostitemId){
+    public PostItem(LocalDate departureDate, LocalDate arrivalDate, int weight, int price, int idRecipient, int idSender, String typePostitem){
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
         this.weight = weight;
         this.price = price;
         this.idRecipient = idRecipient;
         this.idSender = idSender;
-        this.typePostitemId = typePostitemId;
+        this.typePostitem = typePostitem;
     }
+
 
     public int getIdPostItem() {
         return idPostItem;
@@ -99,15 +101,24 @@ public class PostItem {
         this.typePostitemId = typePostitemId;
     }
 
-    public NumberPostoffice getNumberPostoffice() {
-        return numberPostoffice;
+    public int getPostOfficeId() {
+        return postOfficeId;
     }
 
-    public void setNumberPostoffice(NumberPostoffice numberPostoffice) {
-        this.numberPostoffice = numberPostoffice;
+    public void setPostOfficeId(int postOfficeId) {
+        this.postOfficeId = postOfficeId;
     }
 
     public void printItemInformation(){
-        System.out.println(getIdPostItem() + " " + getDepartureDate() + " " + getArrivalDate() + " " + getWeight() + " " + getPrice() + " " + getIdRecipient() + " " + getIdSender() + " " + getTypePostitemId() + " " + getNumberPostoffice());
+        System.out.println(getIdPostItem() + " " + getDepartureDate() + " " + getArrivalDate() + " " + getWeight() + " " + getPrice() + " " + getIdRecipient() + " " + getIdSender() + " " + getTypePostitemId() + " " + getPostOfficeId());
+    }
+
+
+    public String getTypePostitem() {
+        return typePostitem;
+    }
+
+    public void setTypePostitem(String typePostitem) {
+        this.typePostitem = typePostitem;
     }
 }

@@ -1,7 +1,9 @@
 addpostoffice
 addnumberpostoffice Санкт-Петербург Запад
-addclient Горшков;Алексей;1
+addclient Алексей;Пушкин;2
 addtypepostitem письмо
-addpostitem 2022-06-01;2022-06-12;1200;1400;1;2;письмо;1
+addpostitem 2022-06-01;2022-06-12;1200;1400;1;2;письмо;3
 addtransport авиа;1
-addaddress Санкт-Петербург;Народная ул.;6;4;14;+48786991186;1
+addaddress Санкт-Петербург;Народная ул.;6;4;14;+48786991186;2
+printinfoitem 1
+printitembyname Алексей;Горшков

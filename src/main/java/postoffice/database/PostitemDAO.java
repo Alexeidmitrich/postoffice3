@@ -10,6 +10,10 @@ public interface PostitemDAO {
 
     PostItem getPostitemById(int id);
 
+    PostItem getPostItemInfo(int typePostitem_id);
+
+    PostItem getPostItemByLastname(String firstname, String lastname);
+
 
     void save(PostItem postItem, int postofficeId);
 }

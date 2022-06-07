@@ -8,22 +8,20 @@ import java.util.regex.Pattern;
 public class NewCommandTool{
     private PostofficeRefactoring postofficeRefactoring;
 
+    public NewCommandTool(){
+        postofficeRefactoring = new PostofficeRefactoring();
+    }
     public void parseCommand(String command) {
-        final String addPostoffice = "(addpostoffice)";
         final String addNumberPostoffice = "(addnumberpostoffice) ([a-zA-Z\\sа-яА-Я\\W$]+)";
         final String addClient = "(addclient) ([a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9]+)";
         final String addTypePostitem = "(addtypepostitem) ([a-zA-Zа-яА-Я]+)";
         final String addPostitem = "(addpostitem) ([0-9.-]+;[0-9.-]+;[0-9]+;[0-9]+;[0-9]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
         final String addTransport = "(addtransport) ([a-zA-Zа-яА-Я\\/-]+;[0-9]+)";
         final String addAddress = "(addaddress) ([a-zA-Zа-яА-Я-0-9]+;[a-zA-Z\\sа-яА-Я\\W$0-9]+;[0-9]+)";
-        Matcher  matcher = isPatternMatches(command, addPostoffice);
-        if (matcher.find()) {
-            String data = matcher.group(1);
-            System.out.println(data);
-            postofficeRefactoring = new PostofficeRefactoring();
-            System.out.println("Ok");
-        }
-        matcher = isPatternMatches(command, addNumberPostoffice);
+        final String printAllItem = "(printallitem)";
+        final String printInfoItem = "(printinfoitem) ([0-9]+)";
+        final String printItemByName = "(printitembyname) ([a-zA-Z\\sа-яА-Я\\W$0-9]+;[a-zA-Z\\sа-яА-Я\\W$0-9]+)";
+        Matcher  matcher = isPatternMatches(command, addNumberPostoffice);
         if (matcher.find()) {
             String data = matcher.group(2);
             System.out.println(data);
@@ -81,6 +79,30 @@ public class NewCommandTool{
             int idClient = Integer.parseInt(addressDate[6]);
             postofficeRefactoring.addAddress(addressDate[0], addressDate[1], addressDate[2], addressDate[3], addressDate[4],addressDate[5], idClient);
             System.out.println("Ok");
+        }
+        matcher = isPatternMatches(command, printAllItem);
+        if(matcher.find()){
+            String data = matcher.group(1);
+            System.out.println(data);
+            postofficeRefactoring.printAllItem();
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printInfoItem);
+        if(matcher.find()){
+            String data = matcher.group(2);
+            System.out.println(data);
+            String[] infoData = data.split(";");
+            int typePostitem_id = Integer.parseInt(infoData[0]);
+            postofficeRefactoring.printInfoItem(typePostitem_id);
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printItemByName);
+        if(matcher.find()){
+            String data = matcher.group(2);
+            System.out.println(data);
+            String[] nameData = data.split(";");
+            postofficeRefactoring.printItemByLastname(nameData[0],nameData[1]);
+            System.out.println("OK");
         }
     }
     public Matcher isPatternMatches(String command, String regex){
